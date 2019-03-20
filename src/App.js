@@ -21,12 +21,18 @@ class App extends Component {
       this.rowId = 0;
    }
 
- 
-  
   handleChange = (e) => {
+    let errors = this.state.errors || {};
+    if (e.target.value) { 
+      errors[e.target.id] = '';
+    } else {
+      errors[e.target.id] = 'Cannot be empty';
+    }
+    
     this.setState({
-      [e.target.id]: e.target.value
-    })
+      [e.target.id]: e.target.value,
+      errors: errors
+    });
   }
   
   handleNameUpdate = (e) => {
@@ -57,15 +63,21 @@ class App extends Component {
     });
    }
   }
-  
-  
-  
+
  handleNumberChange = (e) => {
-  if (!isNaN(e.target.value)) {
+  let errors = this.state.errors || {};
+  if (e.target.value) { 
+    errors[e.target.id] = '';
+  } else {
+    errors[e.target.id] = 'Cannot be empty';
+  }
+
+  if (!isNaN(e.target.value) ) {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
+      errors: errors
     })
-   }
+   } 
   }
 
   addItem = (e) => {
@@ -85,8 +97,6 @@ class App extends Component {
       name: "",
      number: ""
     });
-    }else{
-      alert("Form has errors.")
     }
   }
   
@@ -115,13 +125,13 @@ class App extends Component {
     let formIsValid = true;
 
     //Name
-    if(!fieldName){
+    if(fieldName === ""){
       formIsValid = false;
       errors["name"] = "Cannot be empty";
     }
 
     //Number
-    if(!fieldNumber){
+    if(fieldNumber === ""){
       formIsValid = false;
       errors["number"] = "Cannot be empty";
     }
@@ -132,13 +142,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="all">
         <div>
-          <input id="name" ref="name" placeholder="name" value={this.state.name} onChange={this.handleChange}/>
-                <span className="error">{this.state.errors["name"]}</span>
-          <input id="number" ref="number" placeholder="number" value={this.state.number} onChange={this.handleNumberChange} onKeyPress={this.handleKeyPress}/>
-
-                  <span className="error">{this.state.errors["number"]}</span>
+          <h1>Contact Form</h1>
+          Enter Name:<input id="name" ref="name" placeholder="name" value={this.state.name} onChange={this.handleChange} />
+                <div className="error">{this.state.errors["name"]}</div>
+                Enter Number: <input id="number" ref="number" placeholder="number" value={this.state.number} onChange={this.handleNumberChange} onKeyPress={this.handleKeyPress}/>
+                  <div className="error">{this.state.errors["number"]}</div>
           <button onClick={this.addItem}>add</button>
         </div>
         <AddItems entries={this.state.items} handleRemove={this.handleRemoveItem} handleEdit={this.handleEdit}/>
