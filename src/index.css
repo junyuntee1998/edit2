@@ -8,6 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 input{
 
   padding:12px;
@@ -15,6 +16,9 @@ input{
   
 }
 
+.numberInput {
+  margin-top:20px;
+}
 
 div div div button{
   
@@ -23,8 +27,6 @@ div div div button{
   border: none;
   border-radius: 4px;
   color:white;
-  margin-top:20px;
-  margin-left:20px;
 }
 
 table button{
@@ -34,7 +36,7 @@ table button{
   border: none;
   border-radius: 4px;
   color:white;
-  margin-left:20px;
+
 }
 
 button:hover{
@@ -42,15 +44,19 @@ button:hover{
   
 }
 
+.updateButton {
+  margin-top:20px;
+}
+
 
 .error {
   color:red;
-  margin-left:110px;
+  margin-left:67px;
   
 }
 
 .all{
-  margin-left:20px;
+  margin: 0 20px;
 }
 
 #name {
@@ -61,16 +67,95 @@ button:hover{
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  margin-top:20px;
+  width:100%;
 
 }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.table100.ver1 th {
+  font-weight:bold;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.4;
+  background-color: #6c7ae0;
+}
+
+.table100-head th {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.table100.ver1 td {
+  font-size: 15px;
+  color: #808080;
+  line-height: 1.4;
+}
+
+.table100-body td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.column1 {
+  width: 40%;
+  padding-left: 40px;
+}
+th, td {
+  font-weight: unset;
+  padding-right: 10px;
+  text-align: left;
+}
+
+.column2 {
+  width:50%;
+}
+.column3 {
+  width:10%;
+}
+
+.table100.ver1 .table100-body tr:nth-child(even) {
+  background-color: #f8f6ff;
+}
+
+.table100.ver1 {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+
+.wrap-table100 {
+  margin-top:40px;
+}
+
+fieldset {
+  padding: 20px 40px;
+  margin:0px;
+}
+
+.addButton {
+  margin-top:20px;
+}
+
+.editButton {
+  margin-right:20px;
+}
+
+#edit-name {
+  margin-left:20px;
+}
+
+.editNumberInput {
+  margin-top: 20px;
+}
+
+.editField {
+  margin: 40px 40px;
 }

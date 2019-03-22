@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import AddItems from './AddItems';
 import _ from 'lodash';
+import EditField from './EditField';
 
 class App extends Component {
 
@@ -36,17 +37,31 @@ class App extends Component {
   }
   
   handleNameUpdate = (e) => {
+    let errors = this.state.errors || {};
+    if (e.target.value) { 
+  
+      errors[e.target.id] = '';
+    } else {
+      errors[e.target.id] = 'Cannot be empty';
+    }
     this.setState({
-      editName: e.target.value
+      editName: e.target.value,
+      errors:errors
     });
   }
   
-  handleUpdate = (e) => {
+  handleUpdate = (id) => {
   let items = this.state.items;
-  let record = _.find(items, _.find(items, {id: this.state.editId }));
-  record.name = this.state.editName;
-  record.number = this.state.editNumber;
-  
+
+  if ([this.state.editName]=="" || [this.state.editNumber]=="") {
+    let pastRecord = _.find(items, _.find(items, {id: id }));
+    this.setState({
+      [this.state.editId]: pastRecord
+    })
+  } else {
+    let record = _.find(items, _.find(items, {id: this.state.editId }));
+    record.name = this.state.editName;
+    record.number = this.state.editNumber;
     this.setState({
       [this.state.editId]: record,
       showEdit: false,
@@ -56,10 +71,20 @@ class App extends Component {
     });
   }
   
+  }
+  
    handleNumberUpdate = (e) => {
+    let errors = this.state.errors || {};
+    if (e.target.value) { 
+      errors["edit-number"] = '';
+    } else {
+      errors["edit-number"] = 'Cannot be empty';
+    }
+
    if (!isNaN(e.target.value)) {
    		this.setState({
-      editNumber: e.target.value
+      editNumber: e.target.value,
+      errors:errors
     });
    }
   }
@@ -140,24 +165,29 @@ class App extends Component {
     return formIsValid;
   }
 
+
   render() {
     return (
       <div className="all">
         <div>
           <h1>Contact Form</h1>
-          Enter Name:<input id="name" ref="name" placeholder="name" value={this.state.name} onChange={this.handleChange} />
+          <fieldset>
+          Name:<input id="name" ref="name" placeholder="name" value={this.state.name} onChange={this.handleChange} />
                 <div className="error">{this.state.errors["name"]}</div>
-                Enter Number: <input id="number" ref="number" placeholder="number" value={this.state.number} onChange={this.handleNumberChange} onKeyPress={this.handleKeyPress}/>
+          Number: <input className="numberInput" id="number" ref="number" placeholder="number" value={this.state.number} onChange={this.handleNumberChange} onKeyPress={this.handleKeyPress}/>
                   <div className="error">{this.state.errors["number"]}</div>
-          <button onClick={this.addItem}>add</button>
+          <button className="addButton"onClick={this.addItem}>Add</button>
+          </fieldset>
         </div>
         <AddItems entries={this.state.items} handleRemove={this.handleRemoveItem} handleEdit={this.handleEdit}/>
         {
         	this.state.showEdit &&
-          <div>
-       <input id="edit-name" ref="name" placeholder="name" onChange={this.handleNameUpdate} value={this.state.editName} />
-       <input placeholder="number" value={this.state.editNumber} onChange={this.handleNumberUpdate}/>
-       <button onClick={this.handleUpdate}>Update</button>
+          <div className="editField">
+       Name:<input id="edit-name" ref="name" placeholder="name" onChange={this.handleNameUpdate} value={this.state.editName} />
+       <div className="error">{this.state.errors["edit-name"]}</div>
+       Number: <input className="editNumberInput" placeholder="number" value={this.state.editNumber} onChange={this.handleNumberUpdate}/>
+       <div id="edit-number" className="error">{this.state.errors["edit-number"]}</div>
+       <button className="updateButton"onClick={this.handleUpdate}>Update</button>
           </div>
         }
         
